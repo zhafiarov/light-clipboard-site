@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Light Clipboard — Support</title>
+<style>
+  :root {
+    --ground: #fbf9f8;
+    --ink: #191513;
+    --muted: #6e6560;
+    --accent: #c9302a;
+    --line: #e7e1dc;
+    --panel: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #15120f;
+      --ink: #f3eee9;
+      --muted: #a79d95;
+      --accent: #ff7264;
+      --line: #322b26;
+      --panel: #1e1a17;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 48px 20px 80px;
+    background: var(--ground);
+    color: var(--ink);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 32px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -.02em; }
+  h2 { font-size: 20px; margin: 40px 0 10px; letter-spacing: -.01em; }
+  p, li { color: var(--ink); }
+  .lede { color: var(--muted); margin: 0 0 8px; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 6px 0; }
+  a { color: var(--accent); }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: 20px 0;
+  }
+  .panel h3 { margin: 0 0 6px; font-size: 16px; }
+  .panel p { margin: 0; color: var(--muted); font-size: 15.5px; }
+  footer {
+    margin-top: 56px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 15px;
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <h1>Light Clipboard</h1>
+  <p class="lede">Support and answers to the questions people ask most.</p>
+
+  <h2>Turning the keyboard on</h2>
+  <p>Light Clipboard saves snippets in the app, and a keyboard types them into any other app. iOS only lets you add that keyboard from Settings:</p>
+  <ol>
+    <li>Open <strong>Settings</strong>, then <strong>General</strong>, then <strong>Keyboard</strong>, then <strong>Keyboards</strong>.</li>
+    <li>Tap <strong>Add New Keyboard</strong> and choose <strong>Light Clipboard</strong>.</li>
+    <li>Tap <strong>Light Clipboard</strong> in the list and turn on <strong>Allow Full Access</strong>.</li>
+  </ol>
+  <p>In any app, tap a text field, hold the globe key to switch keyboards, and tap a snippet to type it.</p>
+
+  <div class="panel">
+    <h3>The keyboard is empty even though I saved snippets</h3>
+    <p>Full Access is off. Without it iOS blocks the keyboard from reading what the app saved, so it has nothing to show. Turn it on at Settings, General, Keyboard, Keyboards, Light Clipboard.</p>
+  </div>
+
+  <div class="panel">
+    <h3>Why does the keyboard need Full Access?</h3>
+    <p>Only to read the snippets you saved in the app. It makes no network requests and records nothing you type. See the <a href="privacy.html">privacy policy</a>.</p>
+  </div>
+
+  <div class="panel">
+    <h3>I paid, but the limit is still there</h3>
+    <p>Open the app, tap the crown, and choose Restore Purchases. If it still does not lift, write to us with the Apple Account you paid from.</p>
+  </div>
+
+  <h2>Snippets and limits</h2>
+  <ul>
+    <li>Three snippets are free, with no time limit.</li>
+    <li>Slot packs add 3, 5, 10 or 20 more, and they stack.</li>
+    <li>The monthly subscription lifts the limit while it is active; the lifetime unlock lifts it permanently.</li>
+    <li>Drag a snippet to reorder it. Tap Edit, then the minus button, to delete one.</li>
+  </ul>
+
+  <h2>Deleting your data</h2>
+  <p>Everything lives on your device. Deleting the app removes every snippet with it. Nothing is stored anywhere else.</p>
+
+  <h2>Contact</h2>
+  <p>Write to <a href="mailto:zhafiarov.rus@yahoo.com">zhafiarov.rus@yahoo.com</a>. Please say which iOS version you are on and what you expected to happen.</p>
+
+  <footer>
+    <a href="privacy.html">Privacy policy</a>
+  </footer>
+
+</main>
+</body>
+</html>
