@@ -3,24 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Light Clipboard — Support</title>
+<title>Light Clipboard — Snippet keyboard for iPhone and iPad</title>
+<meta name="description" content="Light Clipboard saves the text you retype all day and gives you a keyboard that types it into any app with one tap. No Full Access, no account, no analytics. Free for three snippets.">
+<meta name="apple-itunes-app" content="app-id=6809220751">
+<meta property="og:title" content="Light Clipboard — Snippet keyboard for iPhone and iPad">
+<meta property="og:description" content="Save it once, tap it into any app. A snippet keyboard that never asks for Full Access.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zhafiarov.github.io/light-clipboard-site/">
+<meta property="og:image" content="https://zhafiarov.github.io/light-clipboard-site/icon.png">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="canonical" href="https://zhafiarov.github.io/light-clipboard-site/">
 <style>
   :root {
-    --ground: #fbf9f8;
+    --ground: #fbfcfe;
     --ink: #191513;
     --muted: #6e6560;
-    --accent: #c9302a;
-    --line: #e7e1dc;
+    --accent: #1a7be0;
+    --accent-ink: #0f5fb3;
+    --button: #0f5fb3;
+    --button-ink: #fff;
+    --line: #e2e8f0;
     --panel: #fff;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --ground: #15120f;
+      --ground: #101418;
       --ink: #f3eee9;
       --muted: #a79d95;
-      --accent: #ff7264;
-      --line: #322b26;
-      --panel: #1e1a17;
+      --accent: #62acfb;
+      --accent-ink: #8ec3ff;
+      --button: #8ec3ff;
+      --button-ink: #101418;
+      --line: #2a323c;
+      --panel: #171c22;
     }
   }
   * { box-sizing: border-box; }
@@ -38,7 +54,15 @@
   .lede { color: var(--muted); margin: 0 0 8px; }
   ol, ul { padding-left: 22px; }
   li { margin: 6px 0; }
-  a { color: var(--accent); }
+  a { color: var(--accent-ink); }
+  .hero { display: flex; gap: 18px; align-items: center; margin-bottom: 8px; }
+  .hero img { width: 84px; height: 84px; border-radius: 19px; flex: none; }
+  .store {
+    display: inline-block; margin: 14px 0 4px; padding: 11px 18px; border-radius: 999px;
+    background: var(--button); color: var(--button-ink); text-decoration: none; font-weight: 600;
+  }
+  .store:hover { filter: brightness(1.06); }
+  .fine { color: var(--muted); font-size: 15px; margin: 6px 0 0; }
   .panel {
     background: var(--panel);
     border: 1px solid var(--line);
@@ -55,13 +79,23 @@
     color: var(--muted);
     font-size: 15px;
   }
+  footer a { margin-right: 14px; }
 </style>
 </head>
 <body>
 <main>
 
-  <h1>Light Clipboard</h1>
-  <p class="lede">Support and answers to the questions people ask most.</p>
+  <div class="hero">
+    <img src="icon.png" alt="" width="84" height="84">
+    <div>
+      <h1>Light Clipboard</h1>
+      <p class="lede">A keyboard that types your saved text into any app. One tap, no copying.</p>
+    </div>
+  </div>
+
+  <p>Your email address, a phone number, the reply you send twenty times a week, an address, a block of hashtags. Save it once in the app, then tap it into any app from the Light Clipboard keyboard. The keyboard never asks for Full Access: it has no network, no account and no analytics, and it never sees what you type.</p>
+  <a class="store" href="https://apps.apple.com/app/apple-store/id6809220751?pt=129129021&amp;ct=site&amp;mt=8">Download on the App Store</a>
+  <p class="fine">Free for three snippets, for iPhone and iPad, iOS 18.2 or later. In 30 languages.</p>
 
   <h2>Turning the keyboard on</h2>
   <p>Light Clipboard saves snippets in the app, and a keyboard types them into any other app. iOS only lets you add that keyboard from Settings:</p>
@@ -78,7 +112,7 @@
 
   <div class="panel">
     <h3>Does the keyboard need Full Access?</h3>
-    <p>No. Light Clipboard never asks for it. The keyboard reads the snippets you saved in the app, makes no network requests, and records nothing you type. See the <a href="privacy.html">privacy policy</a>.</p>
+    <p>No. Light Clipboard never asks for it. The keyboard reads the snippets you saved in the app, makes no network requests, and records nothing you type. See the <a href="privacy.html">privacy policy</a>, or read <a href="article.html">what an iOS keyboard can't do without Full Access</a>.</p>
   </div>
 
   <div class="panel">
@@ -90,18 +124,21 @@
   <ul>
     <li>Three snippets are free, with no time limit.</li>
     <li>Slot packs add 3, 5, 10 or 20 more, and they stack.</li>
-    <li>A subscription, monthly or yearly, lifts the limit while it is active; the lifetime unlock lifts it permanently.</li>
-    <li>Drag a snippet to reorder it. Tap Edit, then the minus button, to delete one.</li>
+    <li>Unlimited Monthly and Unlimited Yearly lift the limit while active, and both start with a free week; Lifetime Unlock lifts it permanently.</li>
+    <li>Give a snippet a name, drag to reorder, hold one to copy, edit or delete it.</li>
+    <li>Copy a snippet, or save a new one, from the Shortcuts app or by asking Siri.</li>
   </ul>
 
   <h2>Deleting your data</h2>
   <p>Everything lives on your device. Deleting the app removes every snippet with it. Nothing is stored anywhere else.</p>
 
   <h2>Contact</h2>
-  <p>Write to <a href="mailto:light.clipboard.app@gmail.com">light.clipboard.app@gmail.com</a>. Please say which iOS version you are on and what you expected to happen.</p>
+  <p>Write to <a href="mailto:zhafiarov.rus@yahoo.com">zhafiarov.rus@yahoo.com</a>. Please say which iOS version you are on and what you expected to happen.</p>
 
   <footer>
     <a href="privacy.html">Privacy policy</a>
+    <a href="article.html">Technical article</a>
+    <a href="press.html">Press kit</a>
   </footer>
 
 </main>
