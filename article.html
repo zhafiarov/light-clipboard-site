@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What an iOS keyboard can't do without Full Access</title>
+<meta name="description" content="Every third-party iOS keyboard runs in one of two sandboxes. What the stricter one allows, what it refuses, and what building a snippet keyboard inside it did to the design.">
+<meta name="apple-itunes-app" content="app-id=6809220751">
+<meta property="og:title" content="What an iOS keyboard can't do without Full Access">
+<meta property="og:description" content="The two sandboxes of a custom keyboard, and what building inside the stricter one costs.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://zhafiarov.github.io/light-clipboard-site/article.html">
+<meta property="og:image" content="https://zhafiarov.github.io/light-clipboard-site/icon.png">
+<link rel="icon" href="icon.png">
+<link rel="canonical" href="https://zhafiarov.github.io/light-clipboard-site/article.html">
+<style>
+  :root { --ground: #fbfcfe; --ink: #191513; --muted: #6e6560; --accent: #1a7be0; --accent-ink: #0f5fb3; --button: #0f5fb3; --button-ink: #fff; --line: #e2e8f0; --panel: #fff; --code: #f1f5f9; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ground: #101418; --ink: #f3eee9; --muted: #a79d95; --accent: #62acfb; --accent-ink: #8ec3ff; --button: #8ec3ff; --button-ink: #101418; --line: #2a323c; --panel: #171c22; --code: #1c232b; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 48px 20px 80px; background: var(--ground); color: var(--ink); font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 32px; line-height: 1.15; margin: 0 0 10px; letter-spacing: -.02em; }
+  h2 { font-size: 21px; margin: 40px 0 10px; letter-spacing: -.01em; }
+  .meta { color: var(--muted); font-size: 15px; margin: 0 0 28px; }
+  .meta a { color: var(--accent-ink); }
+  p, li { color: var(--ink); }
+  ul { padding-left: 22px; } li { margin: 6px 0; }
+  a { color: var(--accent-ink); }
+  code { font: 15px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code); padding: 1px 5px; border-radius: 5px; }
+  pre { background: var(--code); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; overflow-x: auto; }
+  pre code { background: none; padding: 0; font-size: 14.5px; }
+  blockquote { margin: 0; padding: 0 0 0 16px; border-left: 3px solid var(--accent); color: var(--muted); }
+  .store { display: inline-block; margin: 8px 0 0; padding: 11px 18px; border-radius: 999px; background: var(--button); color: var(--button-ink); text-decoration: none; font-weight: 600; }
+  footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+  footer a { margin-right: 14px; }
+</style>
+</head>
+<body>
+<main>
+<article>
+
+<h1>What an iOS keyboard can't do without Full Access</h1>
+<p class="meta">By Ruslan Zhafiarov, the developer of <a href="index.html">Light Clipboard</a> · October 2026</p>
+
+<p>Every third-party keyboard on iOS runs in one of two sandboxes. Which one is decided by a single key in the extension's Info.plist, <code>RequestsOpenAccess</code>, and by a switch the user may or may not turn on in Settings. I built a snippet keyboard, Light Clipboard, entirely inside the stricter of the two. This is what that sandbox allows, what it refuses, and what it did to the design.</p>
+
+<h2>Two sandboxes</h2>
+
+<p>With <code>RequestsOpenAccess</code> set to <code>false</code>, Settings never shows an "Allow Full Access" switch for the keyboard. Apple's documentation lists what such a keyboard gets:</p>
+<ul>
+  <li>everything a basic keyboard needs, plus the system lexicon and the user's text shortcuts</li>
+  <li>no network</li>
+  <li>no file system beyond its own container, except read-only access to the containing app's shared containers</li>
+  <li>no microphone or speaker</li>
+  <li>no iCloud, Game Center or In-App Purchase</li>
+</ul>
+<p>The same page states the consequence in one line: without open access, "keystrokes can't be sent back to your server or anywhere else."</p>
+<p>Set the key to <code>true</code> and the user gets the switch, along with the system warning about everything they type. If they turn it on, the keyboard gains the network and a writable shared container.</p>
+<p>Most keyboards that ask do so because they need something from that second list: sync, cloud suggestions, GIF search. A snippet keyboard needs none of it. It has to read a list and insert a string.</p>
+
+<h2>The app writes, the keyboard reads</h2>
+
+<p>A read-only shared container settles the architecture. The app is the only writer:</p>
+<pre><code>// App
+let defaults = UserDefaults(suiteName: "group.com.example.snippets")
+defaults?.set(try? JSONEncoder().encode(items), forKey: "items")</code></pre>
+<p>The keyboard reads the same key every time it appears, because iOS keeps the extension process alive between appearances and the list may have changed in the meantime. To avoid rebuilding the grid each time a text field gets focus, it compares the raw bytes first:</p>
+<pre><code>// Keyboard extension
+private func loadItems() {
+    let data = userDefaults?.data(forKey: storageKey)
+    guard data != lastLoadedData || lastLoadedData == nil else { return }
+    lastLoadedData = data
+
+    if let data, let decoded = try? JSONDecoder().decode([Snippet].self, from: data) {
+        items = decoded
+    } else {
+        items = []
+    }
+    collectionView.reloadData()
+}</code></pre>
+<p>Nothing flows the other way. There is no path by which the keyboard could report anything, to the app or to anyone else.</p>
+
+<h2>Insert, don't paste</h2>
+
+<p>Tapping a tile calls one method:</p>
+<pre><code>textDocumentProxy.insertText(snippet.text)</code></pre>
+<p>The text goes into the document through the proxy, not through the pasteboard, so whatever the user copied earlier is still on their clipboard. The extension never reads from the proxy either. It has no letter keys, so it has no use for the text around the cursor, and <code>documentContextBeforeInput</code> is never called.</p>
+
+<h2>The globe key</h2>
+
+<p>App Review guideline 4.4.1 requires a keyboard to offer a way to the next one. The catch is that the system sometimes draws that key for you. On an iPhone with Face ID, iOS puts its own globe below your view and <code>needsInputModeSwitchKey</code> returns <code>false</code>; a second globe would be a duplicate. On an iPad it returns <code>true</code>, and without your own key the user is stuck.</p>
+<pre><code>nextKeyboardButton.addTarget(
+    self,
+    action: #selector(handleInputModeList(from:with:)),
+    for: .allTouchEvents
+)
+
+// in viewWillAppear, because the answer can change between appearances
+nextKeyboardKey.isHidden = !needsInputModeSwitchKey</code></pre>
+<p><code>.allTouchEvents</code> rather than <code>.touchUpInside</code> is what lets the system turn a long press into the keyboard picker and a tap into a plain switch.</p>
+
+<h2>Height is yours to get wrong</h2>
+
+<p>A keyboard extension sets its own height with a constraint, and nothing stops you from choosing badly. Mine was a hardcoded 260 points while the parts inside added up to 208; the extra 52 pushed the top edge over the host app's text field. Now the height is derived from the tiles, follows Dynamic Type, and is capped at 45% of the screen, after which the tiles scroll.</p>
+<p>On iPad the keyboard can be floated, which changes its width without creating a new view. A flow layout keeps the cell sizes it measured first, so the layout has to say when to measure again:</p>
+<pre><code>override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -&gt; Bool {
+    newBounds.width != collectionView?.bounds.width
+}</code></pre>
+
+<h2>What it costs</h2>
+<ul>
+  <li>The keyboard can't sync, fetch or report anything. Sync would have to live in the app.</li>
+  <li>It can't write back to the app. Any feature that wants the keyboard to remember something for the app needs a different design.</li>
+  <li>The user has to add the keyboard in Settings by hand, and no API will do it for them. The app can only explain the steps.</li>
+</ul>
+
+<h2>Was it worth it</h2>
+<p>For this kind of keyboard, yes. "We don't collect what you type" is a promise. "This keyboard has no network access, and you can check that in Settings" is a property of the system. The second is easier to say, and easier to believe.</p>
+
+<p>Light Clipboard is on the App Store, free for three snippets, for iPhone and iPad.</p>
+<a class="store" href="https://apps.apple.com/app/apple-store/id6809220751?pt=129129021&amp;ct=article&amp;mt=8">Get Light Clipboard</a>
+
+<p class="meta" style="margin-top:28px">Source: Apple, <a href="https://developer.apple.com/documentation/uikit/configuring-open-access-for-a-custom-keyboard">Configuring open access for a custom keyboard</a>.</p>
+
+</article>
+
+<footer>
+  <a href="index.html">Light Clipboard</a>
+  <a href="privacy.html">Privacy policy</a>
+  <a href="press.html">Press kit</a>
+</footer>
+</main>
+</body>
+</html>

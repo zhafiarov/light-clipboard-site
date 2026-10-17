@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zhafiarov.github.io/light-clipboard-site/sitemap.xml
