@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Text expander for iPhone: what works without Full Access</title>
+<meta name="description" content="What Allow Full Access means for an iPhone keyboard, why most text expander keyboards with cloud features ask for it, and what an expander can do without it.">
+<meta name="apple-itunes-app" content="app-id=6809220751">
+<meta property="og:title" content="Text expander for iPhone: what works without Full Access">
+<meta property="og:description" content="What Full Access grants a keyboard, why expander keyboards ask for it, and what a text expander can do with the switch off.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://zhafiarov.github.io/light-clipboard-site/text-expander-iphone.html">
+<meta property="og:image" content="https://zhafiarov.github.io/light-clipboard-site/icon.png">
+<link rel="icon" href="icon.png">
+<link rel="canonical" href="https://zhafiarov.github.io/light-clipboard-site/text-expander-iphone.html">
+<style>
+  :root { --ground: #fbfcfe; --ink: #191513; --muted: #6e6560; --accent: #1a7be0; --accent-ink: #0f5fb3; --button: #0f5fb3; --button-ink: #fff; --line: #e2e8f0; --panel: #fff; --code: #f1f5f9; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ground: #101418; --ink: #f3eee9; --muted: #a79d95; --accent: #62acfb; --accent-ink: #8ec3ff; --button: #8ec3ff; --button-ink: #101418; --line: #2a323c; --panel: #171c22; --code: #1c232b; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 48px 20px 80px; background: var(--ground); color: var(--ink); font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 32px; line-height: 1.15; margin: 0 0 10px; letter-spacing: -.02em; }
+  h2 { font-size: 21px; margin: 40px 0 10px; letter-spacing: -.01em; }
+  .meta { color: var(--muted); font-size: 15px; margin: 0 0 28px; }
+  .meta a { color: var(--accent-ink); }
+  p, li { color: var(--ink); overflow-wrap: break-word; }
+  ol, ul { padding-left: 22px; } li { margin: 6px 0; }
+  a { color: var(--accent-ink); }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 20px 0; }
+  .panel h3 { margin: 0 0 6px; font-size: 16px; }
+  .panel p { margin: 0; color: var(--muted); font-size: 15.5px; }
+  .store { display: inline-block; margin: 8px 0 0; padding: 11px 18px; border-radius: 999px; background: var(--button); color: var(--button-ink); text-decoration: none; font-weight: 600; }
+  .store:hover { filter: brightness(1.06); }
+  .fine { color: var(--muted); font-size: 15px; margin: 6px 0 0; }
+  footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+  footer a { margin-right: 14px; }
+  footer p { margin: 10px 0 0; color: var(--muted); }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does Allow Full Access mean in Settings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the switch that moves a third-party keyboard out of the default sandbox, where it has no network and can only read what its app saved, into the open one, where it can use the network and share data with its app. It appears only for keyboards whose developers asked for it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Full Access dangerous?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not by itself. It is a capability; the warning describes what a developer could do with it, not what a given app does. Since you cannot check from outside, it comes down to trusting the developer and needing the feature."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a third-party keyboard read my passwords?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "iOS shows its own keyboard for password fields, so a custom keyboard never appears there, and apps can block third-party keyboards entirely. Elsewhere, a keyboard with Full Access can in principle send what you type with it; one without cannot."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a free text expander for iPhone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "iOS Text Replacement is free, built in, and enough for a handful of short phrases. Light Clipboard is free for three snippets with no time limit. Our guide to canned responses on iPhone compares the options."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main>
+<article>
+
+<h1>Text expander for iPhone: what works without Full Access</h1>
+<p class="meta">A <a href="index.html">Light Clipboard</a> guide · 20 October 2026</p>
+
+<p>Add a text expander keyboard to an iPhone and Settings will often show a switch called Allow Full Access, with a warning from Apple about everything you type. Some expanders will not run until it is on. Here is what the switch grants, why those keyboards ask, what an expander can do without it, and how to check any keyboard yourself.</p>
+
+<h2>What Full Access means</h2>
+<p>Every third-party keyboard on iOS runs in a sandbox that comes in two versions. In the default one, the keyboard has no network access and can only read what its app saved for it. Apple's developer documentation puts it plainly: without open access, keystrokes cannot be sent to the developer's server or anywhere else.</p>
+<p>Full Access is the other version: the developer asks for it, and you grant it with the switch. The warning you see then is Apple's own description of what changes: the developer can now transmit anything you type with that keyboard, including things you typed earlier, such as a card number or a street address. It gains the network and writable shared storage; whether anything is sent is up to the developer.</p>
+
+<h2>Why most expander keyboards ask</h2>
+<p>An expander that only had to type your snippets would not need the switch. The ones that ask usually want it for a feature inside the keyboard itself: sync the keyboard performs on its own, usage counts it records for the app to read later, team libraries, cloud suggestions, crash reports. All of those need the network or writable shared storage.</p>
+<p>None of this makes a keyboard that asks dishonest: the warning describes what becomes possible, not what the app does, and a careful developer may need it for a feature you want. But you cannot verify it from outside; with the switch on, you are trusting the privacy policy. Many simple keyboards never ask; the question is whether yours does, and what for.</p>
+
+<h2>What an expander can do without it</h2>
+<ul>
+  <li><strong>Type your snippets.</strong> Inserting text is the one thing every keyboard can do.</li>
+  <li><strong>Read a list the main app saved.</strong> The default sandbox allows read-only access to storage shared with the app: the app edits, the keyboard reads.</li>
+  <li><strong>Expand abbreviations as you type them</strong>, if it has its own letter keys: a keyboard can see the text around the cursor without Full Access.</li>
+</ul>
+<p>What it cannot do: fetch, sync or report anything, or write back to the app. Anything it would need to remember for the app has to move into the app.</p>
+
+<h2>How Light Clipboard approaches it</h2>
+<p>The <a href="index.html">Light Clipboard</a> keyboard lives in the default sandbox and never asks for the switch; in Settings there is nothing to turn on. The app is the only writer: you save and name snippets there, and the keyboard reads the list each time it appears. Tapping a tile inserts the text, so your clipboard is untouched.</p>
+<p>The keyboard has no letter keys, so it has no use for the text around the cursor and never reads it; the code only inserts. It makes no network requests, has no analytics and records nothing. Snippets stay on the device; deleting the app removes them.</p>
+<p>The cost is real: there is no sync, so a second device needs its own list, and the keyboard cannot tell the app anything, so usage counts had to move into the app. The <a href="article.html">technical article</a> shows the trade-offs in code. Three snippets are free, on iOS 18.2 or later.</p>
+
+<h2>How to check any keyboard yourself</h2>
+<ol>
+  <li>Open <strong>Settings</strong>, then <strong>General</strong>, then <strong>Keyboard</strong>, then <strong>Keyboards</strong>, and tap the keyboard's name.</li>
+  <li>If you see <strong>Allow Full Access</strong>, the developer asked for it. If the row is missing, the keyboard cannot get it; iOS enforces that.</li>
+  <li>Try it with the switch off. If it refuses to work, ask whether you need what the switch unlocks.</li>
+  <li>Read the App Privacy section on its App Store page.</li>
+</ol>
+
+<h2>Questions people ask</h2>
+
+<div class="panel">
+  <h3>What does Allow Full Access mean in Settings?</h3>
+  <p>It is the switch that moves a third-party keyboard out of the default sandbox, where it has no network and can only read what its app saved, into the open one, where it can use the network and share data with its app. It appears only for keyboards whose developers asked for it.</p>
+</div>
+
+<div class="panel">
+  <h3>Is Full Access dangerous?</h3>
+  <p>Not by itself. It is a capability; the warning describes what a developer could do with it, not what a given app does. Since you cannot check from outside, it comes down to trusting the developer and needing the feature.</p>
+</div>
+
+<div class="panel">
+  <h3>Can a third-party keyboard read my passwords?</h3>
+  <p>iOS shows its own keyboard for password fields, so a custom keyboard never appears there, and apps can block third-party keyboards entirely. Elsewhere, a keyboard with Full Access can in principle send what you type with it; one without cannot.</p>
+</div>
+
+<div class="panel">
+  <h3>Is there a free text expander for iPhone?</h3>
+  <p>iOS Text Replacement is free, built in, and enough for a handful of short phrases. Light Clipboard is free for three snippets with no time limit. Our guide to <a href="canned-responses-iphone.html">canned responses on iPhone</a> compares the options.</p>
+</div>
+
+<h2>A keyboard with no switch to worry about</h2>
+<p>Light Clipboard types your saved texts into any app from tiles, and has no Allow Full Access row in Settings. For replies to start from, see <a href="saved-replies-for-work.html">saved replies for support, sales and recruiting</a>.</p>
+<a class="store" href="https://apps.apple.com/app/apple-store/id6809220751?pt=129129021&amp;ct=guides&amp;mt=8">Get Light Clipboard</a>
+<p class="fine">Free for three snippets. No account, no analytics, nothing leaves your device.</p>
+
+<p class="meta" style="margin-top:28px">Source: Apple, <a href="https://developer.apple.com/documentation/uikit/configuring-open-access-for-a-custom-keyboard">Configuring open access for a custom keyboard</a>.</p>
+
+</article>
+
+<footer>
+  <a href="index.html">Light Clipboard</a>
+  <a href="privacy.html">Privacy policy</a>
+  <a href="article.html">Technical article</a>
+  <a href="press.html">Press kit</a>
+  <p>Guides:
+    <a href="canned-responses-iphone.html">Canned responses on iPhone</a>
+    <a href="text-expander-iphone.html">Text expander without Full Access</a>
+    <a href="saved-replies-for-work.html">Saved replies for work</a>
+  </p>
+</footer>
+</main>
+</body>
+</html>
